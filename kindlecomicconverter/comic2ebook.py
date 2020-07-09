@@ -136,10 +136,15 @@ def buildHTML(path, imgfile, imgfilepath):
         else:
             noVerticalPV = False
         x, y = getPanelViewSize(deviceres, size)
+        h = int(size[1]/4)
         boxStyles = {"PV-TL": "position:absolute;left:0;top:0;",
                      "PV-TR": "position:absolute;right:0;top:0;",
                      "PV-BL": "position:absolute;left:0;bottom:0;",
                      "PV-BR": "position:absolute;right:0;bottom:0;",
+                     "PV-TML": "position:absolute;left:0;top:" + str(-h) + "px;clip: rect(" + str(h) + "px, " + str(size[0]) + "px, " + str(size[1]) + "px, 0);",
+                     "PV-TMR": "position:absolute;right:0;top:" + str(-h) + "px;clip: rect(" + str(h) + "px, " + str(size[0]) + "px, " + str(size[1]) + "px, 0);",
+                     "PV-BML": "position:absolute;left:0;top:" + str(-h*2) + "px;clip: rect(" + str(h*2) + "px, " + str(size[0]) + "px, " + str(size[1]) + "px, 0);",
+                     "PV-BMR": "position:absolute;right:0;top:" + str(-h*2) + "px;clip: rect(" + str(h*2) + "px, " + str(size[0]) + "px, " + str(size[1]) + "px, 0);",
                      "PV-T": "position:absolute;top:0;left:" + x + "%;",
                      "PV-B": "position:absolute;bottom:0;left:" + x + "%;",
                      "PV-L": "position:absolute;left:0;top:" + y + "%;",
@@ -148,15 +153,15 @@ def buildHTML(path, imgfile, imgfilepath):
         if not noHorizontalPV and not noVerticalPV:
             if rotatedPage:
                 if options.righttoleft:
-                    order = [1, 3, 2, 4]
+                    order = [1, 3, 5, 7, 2, 4, 6, 8]
                 else:
-                    order = [2, 4, 1, 3]
+                    order = [2, 4, 6, 8, 1, 3, 5, 7]
             else:
                 if options.righttoleft:
-                    order = [2, 1, 4, 3]
+                    order = [2, 1, 4, 3, 6, 5, 8, 7]
                 else:
-                    order = [1, 2, 3, 4]
-            boxes = ["PV-TL", "PV-TR", "PV-BL", "PV-BR"]
+                    order = [1, 2, 3, 4, 5, 6, 7, 8]
+            boxes = ["PV-TL", "PV-TR", "PV-TML", "PV-TMR", "PV-BML", "PV-BMR", "PV-BL", "PV-BR"]
         elif noHorizontalPV and not noVerticalPV:
             if rotatedPage:
                 if options.righttoleft:
@@ -434,28 +439,56 @@ def buildEPUB(path, chapternames, tomenumber):
                       "top: 0;\n",
                       "left: 0;\n",
                       "width: 49.5%;\n",
-                      "height: 50%;\n",
+                      "height: 25%;\n",
                       "float: left;\n",
                       "}\n",
                       "#PV-TR {\n",
                       "top: 0;\n",
                       "right: 0;\n",
                       "width: 49.5%;\n",
-                      "height: 50%;\n",
+                      "height: 25%;\n",
+                      "float: right;\n",
+                      "}\n",
+                      "#PV-TML {\n",
+                      "top: 25%;\n",
+                      "left: 0;\n",
+                      "width: 49.5%;\n",
+                      "height: 25%;\n",
+                      "float: left;\n",
+                      "}\n",
+                      "#PV-TMR {\n",
+                      "top: 25%;\n",
+                      "right: 0;\n",
+                      "width: 49.5%;\n",
+                      "height: 25%;\n",
+                      "float: right;\n",
+                      "}\n",
+                      "#PV-BML {\n",
+                      "bottom: 25%;\n",
+                      "left: 0;\n",
+                      "width: 49.5%;\n",
+                      "height: 25%;\n",
+                      "float: left;\n",
+                      "}\n",
+                      "#PV-BMR {\n",
+                      "bottom: 25%;\n",
+                      "right: 0;\n",
+                      "width: 49.5%;\n",
+                      "height: 25%;\n",
                       "float: right;\n",
                       "}\n",
                       "#PV-BL {\n",
                       "bottom: 0;\n",
                       "left: 0;\n",
                       "width: 49.5%;\n",
-                      "height: 50%;\n",
+                      "height: 25%;\n",
                       "float: left;\n",
                       "}\n",
                       "#PV-BR {\n",
                       "bottom: 0;\n",
                       "right: 0;\n",
                       "width: 49.5%;\n",
-                      "height: 50%;\n",
+                      "height: 25%;\n",
                       "float: right;\n",
                       "}\n",
                       ".PV-P {\n",
@@ -856,8 +889,7 @@ def detectCorruption(tmppath, orgpath):
     if alreadyProcessed:
         print("WARNING: Source files are probably created by KCC. The second conversion will decrease quality.")
         if GUI:
-            GUI.addMessage.emit('Source files are probably created by KCC. The second conversion will decrease quality.'
-                                , 'warning', False)
+            GUI.addMessage.emit('Source files are probably created by KCC. The second conversion will decrease quality.', 'warning', False)
             GUI.addMessage.emit('', '', False)
     if imageSmaller > imageNumber * 0.25 and not options.upscale and not options.stretch:
         print("WARNING: More than 25% of images are smaller than target device resolution. "
