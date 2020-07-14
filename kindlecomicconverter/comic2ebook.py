@@ -139,6 +139,7 @@ def buildHTML(path, imgfile, imgfilepath):
         h = int(size[1]/4)
         noHorizontalPV = False
         noVerticalPV = False
+        additionalStyle = 'background-color:#FFFFFF;'
         boxStyles = {"PV-TL": "position:absolute;left:0;top:0;",
                      "PV-TR": "position:absolute;right:0;top:0;",
                      "PV-BL": "position:absolute;left:0;bottom:0;",
