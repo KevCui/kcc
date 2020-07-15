@@ -156,15 +156,15 @@ def buildHTML(path, imgfile, imgfilepath):
         if not noHorizontalPV and not noVerticalPV:
             if rotatedPage:
                 if options.righttoleft:
-                    order = [1, 3, 5, 7, 2, 4, 6, 8]
+                    order = [1, 3, 5, 2, 4, 6]
                 else:
-                    order = [2, 4, 6, 8, 1, 3, 5, 7]
+                    order = [2, 4, 6, 1, 3, 5]
             else:
                 if options.righttoleft:
-                    order = [2, 1, 4, 3, 6, 5, 8, 7]
+                    order = [2, 1, 4, 3, 6, 5]
                 else:
-                    order = [1, 2, 3, 4, 5, 6, 7, 8]
-            boxes = ["PV-TL", "PV-TR", "PV-TML", "PV-TMR", "PV-BML", "PV-BMR", "PV-BL", "PV-BR"]
+                    order = [1, 2, 3, 4, 5, 6]
+            boxes = ["PV-TL", "PV-TR", "PV-TML", "PV-TMR", "PV-BL", "PV-BR"]
         elif noHorizontalPV and not noVerticalPV:
             if rotatedPage:
                 if options.righttoleft:
@@ -466,32 +466,18 @@ def buildEPUB(path, chapternames, tomenumber):
                       "height: 25%;\n",
                       "float: right;\n",
                       "}\n",
-                      "#PV-BML {\n",
-                      "bottom: 25%;\n",
-                      "left: 0;\n",
-                      "width: 49.5%;\n",
-                      "height: 25%;\n",
-                      "float: left;\n",
-                      "}\n",
-                      "#PV-BMR {\n",
-                      "bottom: 25%;\n",
-                      "right: 0;\n",
-                      "width: 49.5%;\n",
-                      "height: 25%;\n",
-                      "float: right;\n",
-                      "}\n",
                       "#PV-BL {\n",
                       "bottom: 0;\n",
                       "left: 0;\n",
                       "width: 49.5%;\n",
-                      "height: 25%;\n",
+                      "height: 50%;\n",
                       "float: left;\n",
                       "}\n",
                       "#PV-BR {\n",
                       "bottom: 0;\n",
                       "right: 0;\n",
                       "width: 49.5%;\n",
-                      "height: 25%;\n",
+                      "height: 50%;\n",
                       "float: right;\n",
                       "}\n",
                       ".PV-P {\n",
