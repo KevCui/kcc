@@ -136,6 +136,8 @@ def buildHTML(path, imgfile, imgfilepath):
         else:
             noVerticalPV = False
         x, y = getPanelViewSize(deviceres, size)
+        noHorizontalPV = False
+        noVerticalPV = False
         additionalStyle = 'background-color:#FFFFFF;'
         boxStyles = {"PV-TL": "position:absolute;left:0;top:0;",
                      "PV-TR": "position:absolute;right:0;top:0;",
